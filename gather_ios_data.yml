@@ -1,0 +1,35 @@
+---
+- name: gather informaion from router
+  hosts: cisco
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: gather router facts
+      ios_facts:
+    
+    - name: display version
+      debug:
+        msg: "The IOS version is: {{ ansible_net_version }}"
+
+    - name: Display serial number
+      debug:
+        msg: "The serial number is:{{ ansible_net_serialnum }}"
+
+    - name: collect output of show commands
+      ios_command:
+        commands:
+          - show run | i hostname
+          - show ip interface brief
+      tags: show
+      register: show_output
+
+    - name: display command output
+      debug:
+        var: show_output
+      tags: show
+
+    - name: display hostname
+      debug:
+        msg: "The hostname is {{ show_output.stdout[0] }}"
+      tags: show

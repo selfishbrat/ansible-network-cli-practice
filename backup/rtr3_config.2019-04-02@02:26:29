@@ -1,0 +1,269 @@
+Building configuration...
+
+Current configuration : 7482 bytes
+!
+! Last configuration change at 02:15:56 UTC Tue Apr 2 2019 by ec2-user
+!
+version 16.10
+service tcp-keepalives-in
+service tcp-keepalives-out
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+! Call-home is enabled by Smart-Licensing.
+service call-home
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname rtr3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition GS
+ rd 100:100
+ !
+ address-family ipv4
+ exit-address-family
+!
+logging persistent size 1000000 filesize 8192 immediate
+!
+no aaa new-model
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+  no destination transport-method email
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2920261312
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2920261312
+ revocation-check none
+ rsakeypair TP-self-signed-2920261312
+!
+crypto pki trustpoint SLA-TrustPoint
+ enrollment pkcs12
+ revocation-check crl
+!
+!
+crypto pki certificate chain TP-self-signed-2920261312
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32393230 32363133 3132301E 170D3139 30343032 30313038 
+  32395A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 39323032 
+  36313331 32308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100AC24 5417A54A 4A23BA2C 75BBFE4E E78207BB 178FB5A8 96A9F5E7 
+  BE6222A7 26794E37 51026243 4FE7C74C 555E9CDB 02F26D59 C64D4EA8 B71FBBFB 
+  3A613B29 BA89BA1A 8490DF5E D86D3011 9CEC1B0D B7B0FEC8 06CCBFF7 327C412B 
+  A31F719E D5480AA3 E4C846EF 10A73591 02A5B05E C411489E 0CD449E5 7A66B90B 
+  B203C3FB C37F863B E6B4B05D 7F6B9DDE BABD1EEC C32752DC DAF36E98 79154681 
+  71C42EDD 28449A38 245A36DC EE042B59 E220EB05 EE37B597 40F9306F 693C1033 
+  773AE528 A96C776A 1B64EF1F 86E7B74D D856596C 90BFB65C E8E78424 C1EB02EB 
+  6593BC87 5E2F6B46 C0C576A2 64E99ABB C9ADE8D5 0F3AEBD0 31B36756 2FE1A02F 
+  79491D5E 5E570203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 140EADA6 658498D8 D1D651E3 BA4BC204 E3F7D78D 
+  7E301D06 03551D0E 04160414 0EADA665 8498D8D1 D651E3BA 4BC204E3 F7D78D7E 
+  300D0609 2A864886 F70D0101 05050003 82010100 52961AB6 7AA90D3C 409B21F5 
+  A20568CD FD944D93 1F40DD17 812416FD F4B8E509 BEE6D3DD A9CDFC65 3D730FE6 
+  8CEFDADE 4C1CF4FF 5CC3851E CC865299 CEB3B73B 01C0716D 2333401A 19C6B24E 
+  82A9BD3A C8226226 BC539FB3 FAEBB78F C88AAF8E E2040523 7D364984 462A9C1D 
+  0599FFB1 EBA99A64 D1E631A4 2835452B 8E58BD35 2B3EC246 D0983D54 8A084500 
+  28F3B6C4 B39F0479 7A452D8F A6C55632 3EF87591 9ACE6F42 78C9D131 75EAB0D0 
+  C94C8EE6 4481410E 0C3F7F5F 9688519A BCAB136F 87E3CEB8 BD8D15AD EDED1D86 
+  AA3FE164 2BE61362 C281BE07 33F99620 725CD62A 81F652A5 DD0BCD34 A4BD84FC 
+  DE535549 82F26F92 704BFE16 4A4F928C 0603FB4D
+  	quit
+crypto pki certificate chain SLA-TrustPoint
+ certificate ca 01
+  30820321 30820209 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030 
+  32310E30 0C060355 040A1305 43697363 6F312030 1E060355 04031317 43697363 
+  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31 33303533 30313934 
+  3834375A 170D3338 30353330 31393438 34375A30 32310E30 0C060355 040A1305 
+  43697363 6F312030 1E060355 04031317 43697363 6F204C69 63656E73 696E6720 
+  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 
+  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D 
+  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388 8A38E520 
+  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3 700A8BF7 D8F256EE 
+  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7 104FDC5F EA2956AC 
+  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3 C0BD23CF 58BD7188 
+  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7 
+  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191 
+  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44 
+  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F 0101FF04 04030201 
+  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D 0E041604 1449DC85 
+  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648 86F70D01 010B0500 
+  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0 49631C78 240DA905 
+  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B 
+  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8 
+  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C 
+  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49 1765308B 
+  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229 C37C1E69 39F08678 
+  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A B623CDBD 230E3AFB 
+  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE 0275156F 719BB2F0 
+  D697DF7F 28
+  	quit
+!
+license udi pid CSR1000V sn 96APVW58S46
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+username ec2-user privilege 15 secret 9 $9$w.3aIj8hNEcCeE$NazePLprzzXJfYHFvm5HMwQ0wMN3hdJOxX2raj5Dea2
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 192.168.3.103 255.255.255.0
+!
+interface Loopback1
+ ip address 10.3.3.103 255.255.255.0
+!
+interface Tunnel0
+ ip address 10.100.100.3 255.255.255.0
+ ip mtu 1476
+ ip tcp adjust-mss 1360
+ tunnel source GigabitEthernet1
+ tunnel destination 54.89.167.165
+!
+interface VirtualPortGroup0
+ vrf forwarding GS
+ ip address 192.168.35.101 255.255.255.0
+ ip nat inside
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet1
+ ip address dhcp
+ ip nat outside
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+router ospf 1
+ network 10.3.3.0 0.0.0.255 area 0
+ network 10.100.100.0 0.0.0.255 area 0
+ network 172.16.0.0 0.0.255.255 area 0
+ network 192.168.3.0 0.0.0.255 area 0
+!
+iox
+ip forward-protocol nd
+ip tcp window-size 8192
+ip http server
+ip http authentication local
+ip http secure-server
+ip nat inside source list GS_NAT_ACL interface GigabitEthernet1 vrf GS overload
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet1 172.16.0.1
+ip route vrf GS 0.0.0.0 0.0.0.0 GigabitEthernet1 172.16.0.1 global
+!
+ip ssh time-out 60
+ip ssh authentication-retries 5
+ip ssh rsa keypair-name ssh-key
+ip ssh version 2
+ip ssh pubkey-chain
+  username ec2-user
+   key-hash ssh-rsa 70696C963F3FAA2C6C65FFDFFB848BF7 ec2-user
+ip scp server enable
+!
+!
+ip access-list standard GS_NAT_ACL
+ permit 192.168.35.0 0.0.0.255
+!
+!
+snmp-server community ansible-public RO
+snmp-server community ansible-private RW
+snmp-server community ansible-test RO
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 5 0
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ login local
+ transport input ssh
+!
+!
+!
+!
+!
+!
+app-hosting appid guestshell
+ app-vnic gateway1 virtualportgroup 0 guest-interface 0
+  guest-ipaddress 192.168.35.102 netmask 255.255.255.0
+ app-default-gateway 192.168.35.101 guest-interface 0
+ name-server0 8.8.8.8
+end
